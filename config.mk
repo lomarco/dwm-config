@@ -29,13 +29,16 @@ STRICT_WARNINGS	= -Wall -Wextra -Wshadow -Wformat=2 -Wconversion \
 DEBUG_CFLAGS   := -g3 -DDEBUG -O0 -fno-omit-frame-pointer
 RELEASE_CFLAGS := -O3 -flto -DNDEBUG
 
-CFLAGS = -std=c99 -pedantic -Wno-deprecated-declarations ${INCS} ${CPPFLAGS} ${STRICT_WARNINGS}
+CFLAGS = -std=c99 -pedantic -Wno-deprecated-declarations ${INCS} ${CPPFLAGS}
 LDFLAGS = ${LIBS}
 
 ifeq ($(DEBUG), 1)
 	CFLAGS += $(DEBUG_CFLAGS)
 else
 	CFLAGS += $(RELEASE_CFLAGS)
+endif
+ifeq ($(WARNS), 1)
+	CFLAGS += $(STRICT_WARNINGS)
 endif
 
 # compiler and linker
